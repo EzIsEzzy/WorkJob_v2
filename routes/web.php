@@ -18,6 +18,7 @@ Route::get('/home', [UserController::class, 'home']);
 Route::get('job/index',[JobController::class,'index']);
 Route::get('job/create',[JobController::class, 'create']);
 Route::get('job/show',[JobController::class, 'show']);
+Route::post('job/store',[JobController::class, 'store']);
 //all post page, create post page
 Route::get('post/index',[PostController::class, 'index']);
 Route::get('post/create',[PostController::class, 'create']);

@@ -12,7 +12,7 @@
     <form action="{{url('post/store')}}" method="post">
         @csrf
         <textarea name="content" placeholder="Write Something..."></textarea>
-        <input type="submit" value="Post the Post">
+        <input type="submit" value="Post">
     </form>
 </body>
 </html>

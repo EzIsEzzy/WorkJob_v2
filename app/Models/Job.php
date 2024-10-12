@@ -9,6 +9,12 @@ class Job extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'job_picture',
+        'job_content',
+        'user_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
