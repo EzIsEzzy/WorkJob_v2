@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -17,8 +18,12 @@ Route::get('/home', [UserController::class, 'home']);
 //all job page, create job page, show a specific job to apply
 Route::get('job/index',[JobController::class,'index']);
 Route::get('job/create',[JobController::class, 'create']);
-Route::get('job/show',[JobController::class, 'show']);
+Route::get('job/show/job_id={job_id}',[JobController::class, 'show']);
 Route::post('job/store',[JobController::class, 'store']);
+
+Route::get('apply/job={job_id}',[JobApplicationController::class, 'create']);
+Route::post('apply/confirm', [JobApplicationController::class, 'store']);
+
 //all post page, create post page
 Route::get('post/index',[PostController::class, 'index']);
 Route::get('post/create',[PostController::class, 'create']);

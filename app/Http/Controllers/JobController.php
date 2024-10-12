@@ -18,9 +18,9 @@ class JobController extends Controller
     {
         return view('job.create');
     }
-    public function show()
+    public function showJob()
     {
-        //what if i wanted to show the posts of a specific user?
+        //what if i wanted to show the posts of a specific user
         $user = Auth::user();
         if($user)
         {
@@ -30,12 +30,16 @@ class JobController extends Controller
         else
             abort(404);
     }
+    public function show($job_id)
+    {
+        $job = Job::findOrFail($job_id);
+        return view('job.show',compact('job'));
+    }
     public function store(Request $request)
     {
         $request->validate([
             'job_content' => ['required'],
             'job_picture' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:50000'],
-
         ]);
         $user = Auth::user();
         if(!$user)

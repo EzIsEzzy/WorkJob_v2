@@ -8,6 +8,7 @@
     <title>Show All Jobs</title>
 </head>
 <body>
+    <h3>Welcome, <span style="color: darkgreen">{{ Auth::user()->name }}</span></h3>
     @if(session('success'))
 
     <p class="alert alert-success">{{session('success')}}</p>
@@ -22,7 +23,7 @@
     <p>Job Announcement from User/Company: {{ $job->user->name }}</p>
     <p>Created At: {{ $job->created_at }}</p>
     Image: <img src="{{Storage::url($job->job_picture)}}" width="50px" height="50px" alt="job_picture">
-    <p><a href="{{url('show/job_id='. $job->id)}}" class="btn-primary">show more</a> for this Job</p>
+    <p><a href="{{url('job/show/job_id='. $job->id)}}" class="btn-primary">show more</a> for this Job</p>
 
     <hr>
 

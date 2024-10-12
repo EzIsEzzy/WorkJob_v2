@@ -9,6 +9,14 @@ class JobApplication extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'job_id',
+        'user_id',
+        'skills',
+        'experience',
+        'education',
+        'uploaded_cv',
+    ];
     public function job()
     {
         return $this->belongsTo(Job::class);

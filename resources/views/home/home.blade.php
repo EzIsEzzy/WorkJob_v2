@@ -10,6 +10,7 @@
 <body>
     <div class="row d-flex justify-content-center">
         <h1>Welcome to Job Listing Website</h1> <br><br>
+        <h3>Welcome home, <span style="color: darkgreen;">{{ $user->name }}</span>!</h3>
         <p>This is a simple job listing website where you can find and apply for various jobs.</p>
         <p><a href="{{url('job/index')}}">View All Jobs</a></p>
         <p><a href="{{url('post/index')}}">View All Posts</a></p>
@@ -18,6 +19,7 @@
         <p><a href="{{url('post/create')}}">Create a Post</a></p>
         <p><a href="{{url('post/show')}}">Show your Posts</a></p>
         <p><a href="{{url('job/show')}}">Show your Jobs</a></p>
+        <p><a href="{{url('user/show')}}">Show your Profile</a></p>
     </div>
 
 
