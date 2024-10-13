@@ -48,7 +48,7 @@ class JobApplicationController extends Controller
                 $cv_name = 'applicant='.Auth::id(). '_' .time().'.'.$cv->getClientOriginalExtension();
                 $path = $cv->storeAs('applicants/CVs', $cv_name, 'public');
 
-                JobApplication::create([
+                $applyCreate = JobApplication::create([
                     'user_id' => Auth::id(),
                     'job_id' => $request['job_id'],
                     'skills' => $request['skills'],
@@ -56,13 +56,14 @@ class JobApplicationController extends Controller
                     'education' => $request['education'],
                     'uploaded_cv' => $path,
                 ]);
+
             }
         }
         return redirect('job/index')->with('success', 'Application submitted successfully');
     }
     public function show($id)
     {
-        $applicant = JobApplication::where('user_id',$id)->get();
+        $applicant = JobApplication::where('id',$id)->get();
         return view('job_apply.show', compact('applicant'));
     }
 }

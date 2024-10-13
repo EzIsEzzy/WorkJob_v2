@@ -15,7 +15,7 @@
     <h3>Job: {{ $job->job_content }}</h3>
     <ul>
         @forelse($job->jobApplication as $application)
-            <li>{{ $application->user->name }} applied for this job. <a href="{{url('applicant/info/applicant_id='.$application->user_id)}}">View Applicant Info</a></li>
+            <li>{{ $application->user->name }} applied for this job. <a href="{{url('applicant/info/applicant_id='.$application->id)}}">View Applicant Info</a></li>
             Status:{{ $application->is_accepted ? 'Accepted' : 'Pending' }}
             <br> <br>
         @empty
