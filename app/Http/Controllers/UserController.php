@@ -33,7 +33,8 @@ class UserController extends Controller
     public function home()
     {
         $user = Auth::user();
-        return view('home.home', compact('user'));
+        $posts = Post::all();
+        return view('post.index', compact('user', 'posts'));
     }
 
     public function update(Request $request)
@@ -41,6 +42,7 @@ class UserController extends Controller
         //validate the receiving input
         $request->validate([
             'name' => ['required'],
+            'user_picture' => ['required', 'image', 'max:50000'],
         ]);
         //fetch the user ID
         $user= Auth::id();
@@ -49,9 +51,21 @@ class UserController extends Controller
             abort(403);
         else
         {
+            if(!$request->hasFile('user_picture'))
+                echo 'no picture has been uploaded';
+            else
+            {
+                //retrive the picture to the var
+                $user_Picture = $request->file('user_picture');
+                //store the picture in the variable with a special time and retrives the original extension
+                $filename = 'user_pic='.Auth::id().'_'.time() . '.' . $user_Picture->getClientOriginalExtension();
+                // Store the file
+                $path = $user_Picture->storeAs('images/user_pictures', $filename, 'public');
+            }
             //store the validated data in an array
             $updatedData = [
                 'name' => $request['name'],
+                'user_picture' => $path
             ];
             $userInfo = User::where('id', Auth::id());
             //update the data

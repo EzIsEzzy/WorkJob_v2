@@ -47,6 +47,7 @@ Route::put('post/update/{id}',[PostController::class, 'update']);
 Route::get('user/post/delete/{id}',[PostController::class, 'delete']);
 //the user's jobs that he posted, applicant's info
 Route::get('user/job',[JobApplicationController::class, 'index']);
+Route::post('logout',[ProfileController::class, 'destroy']);
 Route::get('applicant/info/applicant_id={id}',[JobApplicationController::class, 'show']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

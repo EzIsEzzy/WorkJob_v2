@@ -14,6 +14,7 @@ class Post extends Model
         'content',
         'user_id',
         'comment_id',
+        'post_picture'
     ];
 
     //relations between the models

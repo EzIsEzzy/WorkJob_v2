@@ -1,31 +1,43 @@
-{{-- Show all posts --}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show All Posts</title>
-</head>
-<body>
-    @if(session('success'))
+@extends('layouts.layout')
 
-    <p class="alert alert-success">{{session('success')}}</p>
+@section('content2')
+@if(session('success'))
 
-    @elseif ($errors->any())
-    @foreach ($errors->all() as $error)
-    <p class="alert alert-danger">{{ $error }}</p>
-    @endforeach
-    @endif
+<p class="alert alert-success">{{session('success')}}</p>
 
-    @forelse ($posts as $post)
-    <p>Post Content: {{$post->content}}</p>
-    <p>For User: {{ $post->user->name }}</p>
-    <p>Created At: {{ $post->created_at }}</p>
-    <a href="{{url('post/show/post_id='. $post->id)}}">Show More</a>
+@elseif ($errors->any())
+@foreach ($errors->all() as $error)
+<p class="alert alert-danger">{{ $error }}</p>
+@endforeach
+@endif
 
-    @empty
-    <p>No Posts for now</p>
-    @endforelse
-</body>
-</html>
+@forelse ($posts as $post)
+<div class="central-meta item">
+    <div class="user-post">
+        <div class="friend-info">
+            <figure>
+                <img src="{{Storage::url($post->user->user_picture)}}" alt="user_picture">
+            </figure>
+            <div class="friend-name">
+                <ins><a href="time-line.html" title="">{{ $post->user->name }}</a></ins>
+                <span>published: {{ $post->created_at }}</span>
+            </div>
+            <div class="post-meta">
+                <img src="{{Storage::url($post->post_picture)}}" alt="post_picture">
+
+                <div class="description">
+                    <p>
+                        {{$post->content}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="coment-area">
+            <a href="{{url('post/show/post_id='. $post->id)}}">Show More</a>
+        </div>
+    </div>
+</div>
+@empty
+<p class="alert alert-secondary text-center">No Posts for now</p>
+@endforelse
+@endsection

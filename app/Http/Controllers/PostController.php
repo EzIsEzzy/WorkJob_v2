@@ -39,14 +39,29 @@ class PostController extends Controller
         //validate the content
         $request->validate([
             'content' => ['required'],
+            'post_picture' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:50000']
         ]);
-        $user= Auth::id();
+        $user= Auth::user();
         if($user)
         {
-            Post::create([
-                'content' => $request['content'],
-                'user_id' => Auth::id(),
-            ]);
+            if(!$request->hasFile('post_picture'))
+                echo 'no picture has been uploaded';
+            else
+            {
+                //retrive the picture to the var
+                $post_Picture = $request->file('post_picture');
+                //store the picture in the variable with a special time and retrives the original extension
+                $filename = 'post_pic='.Auth::id().'_'.time() . '.' . $post_Picture->getClientOriginalExtension();
+                // Store the file
+                $path = $post_Picture->storeAs('images/post_pictures', $filename, 'public');
+
+                Post::create([
+                    'content' => $request['content'],
+                    'user_id' => Auth::id(),
+                    'post_picture' => $path,
+                ]);
+            }
+            
             return redirect('post/index')->with('success','Post Added Successfully!');
         }
         else
