@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +18,21 @@ class PostController extends Controller
     {
         return view('post.create');
     }
-    public function show()
+    public function show($post_id)
     {
-        return view('post.show');
+        $post = Post::findOrFail($post_id);
+        return view('post.show', compact('post'));
+    }
+    public function edit(int $id)
+    {
+        $user= Auth::id();
+        if(!$user)
+            abort(403);
+        else
+        {
+            $post= Post::findOrFail($id);
+            return view('post.edit', compact('post'));
+        }
     }
     public function store(Request $request)
     {
@@ -41,5 +54,45 @@ class PostController extends Controller
             echo 'you must sign in';
         }
 
+    }
+    public function update(Request $request, int $id)
+    {
+        //validate the receiving input
+        $request->validate([
+            'content' => ['required'],
+        ]);
+        //fetch the user ID
+        $user= Auth::id();
+        //if not signed in, i
+        if(!$user)
+            abort(403);
+        else
+        {
+            //store the validated data in an array
+            $updatedData = [
+                'content' => $request['content'],
+            ];
+            //store the result in a variable
+            $post_content = Post::findOrFail($id);
+
+            //update the data
+            $post_content->update($updatedData);
+
+            //return with success message
+            return redirect('user')->with('success', 'Post Updated Successfully!');
+        }
+    }
+
+    public function delete(int $id)
+    {
+        //fetch the id for the post
+        $post = Post::findOrFail($id);
+       if(!$post)
+         abort(404);
+       else
+       {
+            $post->delete();
+            return redirect()->back()->with('success','Post Deleted Successfully!');
+       }
     }
 }

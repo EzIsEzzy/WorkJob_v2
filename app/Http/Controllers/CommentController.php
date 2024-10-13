@@ -28,7 +28,7 @@ class CommentController extends Controller
                 'post_id' => $post_id,
                 'user_id' => Auth::id(),
             ]);
-            return redirect('post/index')->with('success','Comment Added Successfully!');
+            return redirect('post/show/post_id='.$post_id)->with('success','Comment Added Successfully!');
         }
     }
     public function update($post_id)

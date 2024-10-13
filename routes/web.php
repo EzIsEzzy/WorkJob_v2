@@ -27,11 +27,18 @@ Route::post('apply/confirm', [JobApplicationController::class, 'store']);
 //all post page, create post page
 Route::get('post/index',[PostController::class, 'index']);
 Route::get('post/create',[PostController::class, 'create']);
-Route::get('post/show',[PostController::class, 'show']);
+Route::get('post/show/post_id={post_id}',[PostController::class, 'show']);
 Route::post('post/store',[PostController::class, 'store']);
+Route::put('user/update',[UserController::class, 'update']);
 //for simplicity
 Route::post('comment/store/post_id={post_id}',[CommentController::class, 'store']);
-
+//should view the user's profile, with the name, and the posts he has done, updates them and deletes them/user/edit/id=2
+Route::get('user/',[UserController::class, 'show']);
+Route::get('user/edit',[UserController::class, 'edit']);
+Route::put('user/update', [UserController::class, 'update']);
+Route::get('user/post/edit/{id}',[PostController::class, 'edit']);
+Route::put('post/update/{id}',[PostController::class, 'update']);
+Route::get('user/post/delete/{id}',[PostController::class, 'delete']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
