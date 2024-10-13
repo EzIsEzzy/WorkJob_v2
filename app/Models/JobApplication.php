@@ -16,6 +16,7 @@ class JobApplication extends Model
         'experience',
         'education',
         'uploaded_cv',
+        'applying_id',
     ];
     public function job()
     {

@@ -9,7 +9,7 @@
 </head>
 <body>
     @auth()
-    <h1>Welcome to your profile, <span style="color: darkgreen"> {{ Auth::user()->name }} </span></h1>
+    <h1>Welcome to your profile, <span style="color: darkgreen">{{ Auth::user()->name }}</span></h1>
     <br>
     Here is your Profile settings.. adjust them to how you see fit: <br>
     <br>

@@ -25,7 +25,7 @@
     <label for="">Applicant Experience</label>
     <textarea name="experience" placeholder="Enter your experience here"></textarea>
     <br>
-    <label for="">Applicant Eيucation</label>
+    <label for="">Applicant Education</label>
     <textarea name="education" placeholder="Enter your education here"></textarea>
     <br><br>
     <input type="hidden" name="job_id" value="{{$job->id}}">

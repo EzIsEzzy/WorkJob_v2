@@ -17,9 +17,8 @@
 
         <p><a href="{{url('job/create')}}">Create a Job Announcement</a></p>
         <p><a href="{{url('post/create')}}">Create a Post</a></p>
-        <p><a href="{{url('post/show')}}">Show your Posts</a></p>
-        <p><a href="{{url('job/show')}}">Show your Jobs</a></p>
-        <p><a href="{{url('user/')}}">Show your Profile</a></p>
+        <p><a href="{{url('user/job')}}">Show My Jobs</a></p>
+        <p><a href="{{url('user/')}}">Show My Profile</a></p>
     </div>
 
 

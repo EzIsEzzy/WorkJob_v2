@@ -14,13 +14,19 @@ Route::get('/', function () {
 Route::get('/profile',[UserController::class, 'index']);
 
 //home page
-Route::get('/home', [UserController::class, 'home']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [UserController::class, 'home']);
 //all job page, create job page, show a specific job to apply
 Route::get('job/index',[JobController::class,'index']);
 Route::get('job/create',[JobController::class, 'create']);
 Route::get('job/show/job_id={job_id}',[JobController::class, 'show']);
 Route::post('job/store',[JobController::class, 'store']);
-
+//job application functionality
 Route::get('apply/job={job_id}',[JobApplicationController::class, 'create']);
 Route::post('apply/confirm', [JobApplicationController::class, 'store']);
 
@@ -39,11 +45,9 @@ Route::put('user/update', [UserController::class, 'update']);
 Route::get('user/post/edit/{id}',[PostController::class, 'edit']);
 Route::put('post/update/{id}',[PostController::class, 'update']);
 Route::get('user/post/delete/{id}',[PostController::class, 'delete']);
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
+//the user's jobs that he posted, applicant's info
+Route::get('user/job',[JobApplicationController::class, 'index']);
+Route::get('applicant/info/applicant_id={id}',[JobApplicationController::class, 'show']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

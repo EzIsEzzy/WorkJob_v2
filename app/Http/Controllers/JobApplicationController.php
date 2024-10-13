@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\JobApplication;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class JobApplicationController extends Controller
 {
     //
+    private static int $counter = 0;
+    public function index()
+    {
+        //select the jobs that he posted first
+        $jobs = Job::where('user_id',Auth::id())->with('jobApplication')->get();
+        return view('user.jobs', compact('jobs'));
+    }
     public function create($job_id)
     {
         $job = Job::find($job_id);
@@ -51,5 +59,10 @@ class JobApplicationController extends Controller
             }
         }
         return redirect('job/index')->with('success', 'Application submitted successfully');
+    }
+    public function show($id)
+    {
+        $applicant = JobApplication::where('user_id',$id)->get();
+        return view('job_apply.show', compact('applicant'));
     }
 }
