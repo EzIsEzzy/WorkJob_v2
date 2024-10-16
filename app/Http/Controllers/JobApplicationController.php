@@ -7,11 +7,49 @@ use App\Models\JobApplication;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\ApplicationStatusMail;
+use Illuminate\Support\Facades\Mail;
 
 class JobApplicationController extends Controller
 {
     //
-    private static int $counter = 0;
+    public function accept($id)
+    {
+        // Find the applicant
+        $applicant = JobApplication::find($id);
+
+        if($applicant) {
+            // Set the applicant status to accepted
+            $applicant->is_accepted = true;
+            $applicant->save();
+
+            // Send acceptance email
+            Mail::to($applicant->user->email)->send(new ApplicationStatusMail('accepted', $applicant));
+
+            return redirect()->back()->with('success', 'Applicant accepted and email sent.');
+        }
+
+        return redirect()->back()->with('error', 'Applicant not found.');
+    }
+
+    public function deny($id)
+    {
+        // Find the applicant
+        $applicant = JobApplication::find($id);
+
+        if($applicant) {
+            // Set the applicant status to denied
+            $applicant->is_accepted = false;
+            $applicant->save();
+
+            // Send denial email
+            Mail::to($applicant->user->email)->send(new ApplicationStatusMail('denied', $applicant));
+
+            return redirect()->back()->with('success', 'Applicant denied and email sent.');
+        }
+
+        return redirect()->back()->with('error', 'Applicant not found.');
+    }
     public function index()
     {
         //select the jobs that he posted first

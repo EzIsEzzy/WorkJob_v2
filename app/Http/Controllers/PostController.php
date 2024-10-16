@@ -61,7 +61,7 @@ class PostController extends Controller
                     'post_picture' => $path,
                 ]);
             }
-            
+
             return redirect('post/index')->with('success','Post Added Successfully!');
         }
         else

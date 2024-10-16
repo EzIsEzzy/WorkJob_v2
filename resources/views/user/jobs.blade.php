@@ -103,8 +103,7 @@
                 <div class="description d-flex flex-column justify-content-center">
                     <ul>
                         @forelse($job->jobApplication as $application)
-                            <li>{{ $application->user->name }} applied for this job. <a href="{{url('applicant/info/applicant_id='.$application->id)}}"style="color:white; background-color:rgb(33, 145, 145); padding: 10px; margin-left:180px; border-radius: 5px">View Applicant Info</a></li>
-                            Status:{{ $application->is_accepted ? 'Accepted' : 'Pending' }}
+                            <li>{{ $application->user->name }} applied for this job. <a href="{{url('applicant/info/applicant_id='.$application->id)}}"style="color:white; background-color:rgb(33, 145, 145); padding: 10px; margin-left:130px; border-radius: 5px">View Applicant Info</a></li>
                             <br> <br>
                         @empty
                             <li>No applicants for this job.</li>

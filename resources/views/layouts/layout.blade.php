@@ -148,11 +148,11 @@
             <div class="top-area">
                 <ul class="main-menu">
                     <li>
-                        <a href="#" title="">Home</a>
+                        <a href="{{url('post/index')}}" title="">Home</a>
 
                     </li>
                     <li>
-                        <a href="#" title="">timeline</a>
+                        <a href="{{url('post/index')}}" title="">timeline</a>
 
                     </li>
 
@@ -203,8 +203,11 @@
                                                     <a href="{{url('user/job')}}" title="">My Job Announcements</a>
                                                 </li>
                                                 <li>
-                                                    <i class="ti-power-off"></i>
-                                                    <a href="{{url('dashboard')}}" title="">Logout</a>
+                                                    <form action="{{ route('logout') }}" method="post">
+                                                        @csrf
+                                                        <i class="ti-power-off"></i>
+                                                        <a href="{{route('logout')}}" title="">Logout</a>
+                                                    </form>
                                                 </li>
                                             </ul>
                                         </div>

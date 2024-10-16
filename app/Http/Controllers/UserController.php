@@ -52,7 +52,7 @@ class UserController extends Controller
         else
         {
             if(!$request->hasFile('user_picture'))
-                echo 'no picture has been uploaded';
+                $path = "images/user_pictures/profile_pfp_default.png";
             else
             {
                 //retrive the picture to the var

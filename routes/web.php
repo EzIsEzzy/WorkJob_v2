@@ -8,9 +8,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/profile',[UserController::class, 'index']);
 
 //home page
@@ -20,6 +20,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', [UserController::class, 'home']);
     Route::get('/home', [UserController::class, 'home']);
 //all job page, create job page, show a specific job to apply
 Route::get('job/index',[JobController::class,'index']);
@@ -29,6 +30,8 @@ Route::post('job/store',[JobController::class, 'store']);
 //job application functionality
 Route::get('apply/job={job_id}',[JobApplicationController::class, 'create']);
 Route::post('apply/confirm', [JobApplicationController::class, 'store']);
+Route::get('/apply/accept/{id}', [JobApplicationController::class, 'accept']);
+Route::get('/apply/deny/{id}', [JobApplicationController::class, 'deny']);
 
 //all post page, create post page
 Route::get('post/index',[PostController::class, 'index']);
@@ -49,9 +52,9 @@ Route::get('user/post/delete/{id}',[PostController::class, 'delete']);
 Route::get('user/job',[JobApplicationController::class, 'index']);
 Route::post('logout',[ProfileController::class, 'destroy']);
 Route::get('applicant/info/applicant_id={id}',[JobApplicationController::class, 'show']);
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

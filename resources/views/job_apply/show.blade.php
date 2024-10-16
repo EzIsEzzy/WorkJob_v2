@@ -10,10 +10,10 @@
 <body>
     <h1>Applicant info for this job</h1>
 
-    
-    
-        
-       
+
+
+
+
 </body>
 </html> --}}
 
@@ -59,8 +59,8 @@
         </div> <br>
         <div class="coment-area d-flex flex-column justify-content-center text-center">
             <br>
-            <a href="{{url('apply/accept')}}" style="color:white; background-color:rgb(33, 145, 145); padding: 10px; border-radius: 5px">Approve</a> <br>
-            <a style="color:white; background-color:rgb(145, 33, 33); padding: 10px; border-radius: 5px" href="{{url('apply/deny')}}">Deny</a>
+            <a href="{{url('apply/accept/'.$info->user->id)}}" style="color:white; background-color:rgb(33, 145, 145); padding: 10px; border-radius: 5px">Approve</a> <br>
+            <a style="color:white; background-color:rgb(145, 33, 33); padding: 10px; border-radius: 5px" href="{{url('apply/deny/'.$info->user->id)}}">Deny</a>
         </div>
     </div>
 </div>
